@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block head_title %}Home{% endblock %}
+{% block nav_title %}Home{% endblock %}
+
+{% block body_content %}
+    {% if user.is_authenticated %}
+        <br><br>
+        <h2>Welcome back <strong>{{ user.username }}</strong>!</h2>
+    {% else %}
+        {% load static %}
+        <div class="text-center vertical-center">
+        <br>
+        <h1>Welcome!</h1>
+            <div class="col-sm-12 my-auto">
+                <br><br><br>
+                <h4 class="card card-block w-25 mx-auto"><a href="{% url 'login' %}">Log In</a></h4>
+                <br><br><br>
+                <h4 class="card card-block w-25 mx-auto"><a href="{% url 'register' %}">Sign Up</a></h4>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
