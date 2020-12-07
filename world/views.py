@@ -10,11 +10,12 @@ from . import models
 
 # Create your views here.
 def index(request):
+    template = 'index.html'
     user = LoginForms()
     if user.is_valid():
         user.save()
         render(request, "registration/login.html", {'form': user})
-        return redirect('home')
+        return redirect(template)
     else:
         return render(request, "registration/login.html", {'form': user})
 

@@ -25,4 +25,5 @@ urlpatterns = [
     path('', TemplateView.as_view(template_name='home.html'), name='home'),
     path('map/', TemplateView.as_view(template_name='map.html'), name='map'),
     path('updatedb/', views.update_location),
+    path('', include('pwa.urls')),
 ]

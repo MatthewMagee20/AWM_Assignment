@@ -17,9 +17,9 @@ import docker_config
 from pathlib import Path
 from whitenoise.storage import CompressedManifestStaticFilesStorage
 
-
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js', 'serviceworker.js')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'world',
     'crispy_forms',
     'leaflet',
+    'pwa',
 ]
 
 MIDDLEWARE = [
@@ -79,7 +80,6 @@ TEMPLATES = [
     },
 ]
 
-
 WSGI_APPLICATION = 'awm_assignment.wsgi.application'
 
 # Database
@@ -91,8 +91,8 @@ DATABASES = {
         'NAME': 'gis',
         'USER': 'docker',
         'PASSWORD': 'docker',
-        'HOST': 'localhost', # postgis_db when using docker, localhost if not
-        'PORT': '25432' # 5432 when using docker, 25432 if not
+        'HOST': 'localhost',  # postgis_db when using docker, localhost if not
+        'PORT': '25432'  # 5432 when using docker, 25432 if not
     }
 }
 
@@ -147,8 +147,8 @@ STATIC_URL = "/static/"
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
-LOGIN_REDIRECT_URL = 'home'
-LOGOUT_REDIRECT_URL = 'home' # new
+LOGIN_REDIRECT_URL = 'index.html'
+LOGOUT_REDIRECT_URL = 'index.html'  # new
 
 if socket.gethostname() == "acer":
     DATABASES["default"]["HOST"] = "localhost"
@@ -170,3 +170,34 @@ else:
     ALLOWED_HOSTS = ['*', ]
     CSRF_COOKIE_SECURE = False
     SESSION_COOKIE_SECURE = False
+
+PWA_APP_NAME = 'awm_assignment'
+PWA_APP_DESCRIPTION = "PWA"
+PWA_APP_THEME_COLOR = '#000000'
+PWA_APP_BACKGROUND_COLOR = '#ffffff'
+PWA_APP_DISPLAY = 'standalone'
+PWA_APP_SCOPE = '/'
+PWA_APP_ORIENTATION = 'any'
+PWA_APP_START_URL = '/index.html'
+PWA_APP_STATUS_BAR_COLOR = 'default'
+PWA_APP_ICONS = [
+    {
+        'src': 'static/images/icons/icon-152x152.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_ICONS_APPLE = [
+    {
+        'src': 'static/images/icons/icon-152x152.png',
+        'sizes': '160x160'
+    }
+]
+PWA_APP_SPLASH_SCREEN = [
+    {
+        'src': 'static/images/icons/icon.png',
+        'media': '(device-width: 320px) and (device-height: 568px) and (-webkit-device-pixel-ratio: 2)'
+    }
+]
+PWA_APP_DIR = 'ltr'
+PWA_APP_LANG = 'en-US'
+PWA_SERVICE_WORKER_PATH = os.path.join(BASE_DIR, 'static/js/serviceworker.js')
